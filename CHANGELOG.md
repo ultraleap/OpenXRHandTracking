@@ -5,8 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 1.0.0-beta
+## 1.0.0-beta2
+### Fixed
 
+ - Fixed support for UWP/AppContainer applications, including WebXR, when used in conjunction with the
+   [Ultraleap 4.1 Tracking SDK](https://developer-archive.leapmotion.com/downloads/external/v4-1-hand-tracking/windows?version=4.1.0).
+   [Issue #8](https://github.com/ultraleap/OpenXRHandTracking/issues/8)
+
+### Added
+
+ - The uninstaller is included with the install as `UninstallOpenXR.cmd` to allow easy uninstallation. An entry is also
+   added to Windows add/remove programs list.
+ - The License, Readme, Changelog and version information are all now included in an install for easy reference.
+ - Added log file output (to complement existing `XR_EXT_debug_utils` support) only warnings and errors are logged by
+   default, but this can be controlled with the `ULTRALEAP_OPENXR_DEBUG` environment variable.
+ - Clarified in the Readme that this is an implicit OpenXR api layer, and does not need explicitly enabling.
+
+### Changed
+
+ - Removed SteamVR <1.14 specific workaround for `xrGetSystemProperties` extension support.
+   [Issue #5](https://github.com/ultraleap/OpenXRHandTracking/issues/5)
+
+## 1.0.0-beta1
 ### Added
 
  - Initial support for the `XR_EXT_hand_tracking` extension
@@ -35,9 +55,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    functioning correctly. This will be resolved when Unreal Engine ships with a newer OpenXR loader, or the existing
    OpenXR loader DLLs are manually updated.
    [Issue #4](https://github.com/ultraleap/OpenXRHandTracking/issues/4)
-
- - There is a known issue with the SteamVR OpenXR runtime 1.13.9
-   [not correctly honouring](https://steamcommunity.com/app/250820/discussions/8/2523653167130760453/)
-   the `XrSystemHandTrackingProperties` as an extension to the `xrGetSystemProperties` call.
-   This API layer includes a work-around that detects and corrects this behaviour.
-   [Issue #5](https://github.com/ultraleap/OpenXRHandTracking/issues/5)

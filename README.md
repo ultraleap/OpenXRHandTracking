@@ -10,6 +10,9 @@ This API layer supports any Ultraleap or Leap Motion tracking devices supported 
 [Leap Motion v4 Software](https://developer-archive.leapmotion.com/downloads/external/v4-developer-beta/windows), such
 as the [Leap Motion Controller](https://www.ultraleap.com/product/leap-motion-controller/).
 
+The API layer is an *implicit* API, and as-such, it requires **no** modification to an application to enable support.
+Any application which uses the `XR_EXT_hand_tracking` will be able to use this layer with no modification.
+
 ## Requirements
 
 ### OpenXR Runtime
@@ -81,13 +84,23 @@ the default values (in brackets) are used:
 ### Temporal Warping
 
 The position of the hands in the scene is interpolated to compensate for differences between the captured hand-tracking
-frame and the update time of the user's view. This is controlled by two variables:
+frame and the update time of the user's view. This is controlled by two environment variables:
 
  - `ULTRALEAP_OPENXR_TIME_WARP_HAND` - +/- timestamp offset in milliseconds for the hand position (default: +10ms)
  - `ULTRALEAP_OPENXR_TIME_WARP_VIEW` - +/- timestamp offset in milliseconds for the view position (default: -25ms)
  
 These parameters can be different for each different headset runtime and can be tuned appropriately. These can help
 stabilise the hand-position in space if the view position is moved rapidly.
+
+### Logging
+
+By default, `%PROGRAMFILES%\Leap Motion\OpenXR\Logs\UltraleapOpenXR.log` will log errors and warnings generated during
+application usage of OpenXR. The logging location, and level can be controlled by the following environment variables:
+
+ - `ULTRALEAP_OPENXR_LOG_LEVEL` - The logging level, supported levels are `all`, `debug`, `info`, `warn`, and `error`
+   (default: "warn")
+ - `ULTRALEAP_OPENXR_LOG_PATH`  - The location of the log file (default:
+   `%PROGRAMFILES%\Leap Motion\OpenXR\Logs\UltraleapOpenXR.log`)
  
 ## Disabling the API layer
 
@@ -97,7 +110,8 @@ If you wish to disable the API layer, this can be achieved by defining the
 ## Uninstalling
 
 You can remove the API layer by right clicking the included `Uninstall.cmd` script and selecting "Run as administrator".
-This will remove the installed files and registry keys.
+This will remove the installed files and registry keys. Uninstallation can also be performed from the Windows "Add or 
+Remove Programs" area of the system settings.
 
 ## Known issues
 
