@@ -20,10 +20,15 @@ Any application which uses the `XR_EXT_hand_tracking` will be able to use this l
 You will require an OpenXR runtime to be installed to use this API layer. The correct runtime will depend on your
 platform and XR hardware, some of the most common platforms are listed below:
 
- * [Microsoft Windows Mixed Reality](https://docs.microsoft.com/en-us/windows/mixed-reality/openxr-getting-started)
- * [Valve SteamVR](https://store.steampowered.com/newshub/app/250820/view/2396425843528787269)
- * [Oculus OpenXR](https://developer.oculus.com/documentation/native/pc/dg-openxr/)
- 
+* [Microsoft Windows Mixed Reality](https://docs.microsoft.com/en-us/windows/mixed-reality/openxr-getting-started)
+* [Valve SteamVR](https://store.steampowered.com/newshub/app/250820/view/2396425843528787269)
+* [Oculus OpenXR](https://developer.oculus.com/documentation/native/pc/dg-openxr/)
+
+#### Required OpenXR Extensions
+
+The runtime is required to support the `XR_KHR_win32_convert_performance_counter_time` (Windows) or
+`XR_KHR_convert_timespec_time` (Unix) extensions. All major runtimes (including those listed above) support these.
+
 ### Ultraleap Software
 
 You will require the current
@@ -37,13 +42,8 @@ The latest version of this API layer can be installed from the
 
 ## Installing
 
-Once downloaded follow the following steps to install the API layer.
+Once downloaded run the EXE installer to installer the API layer.
 
- - Extract the downloaded `.zip`
- - Right click the `Install.cmd` script and select "Run as administrator"
- - Type "Yes" at the prompts accept the license agreement and to start the installation
- - Wait for the installation to complete.
- 
 You can verify that the installation has been successfully completed by installing the
 [Microsoft Mixed Reality OpenXR Developer Tools App](https://www.microsoft.com/store/productId/9n5cvvl23qbt) from the
 Microsoft Store. Once this is opened, navigate to the "System Status" tab, and you should see `XR_EXT_hand_tracking`
@@ -51,15 +51,15 @@ listed in the Extensions section, and `XR_APILAYER_ULTRALEAP_hand_tracking` list
 
 This method of verification has only been confirmed with the Windows Mixed Reality OpenXR runtime, but should work with
 others as well.
- 
+
 ## Setup
 
 The API layer will report hand-tracking as supported when this API layer is installed. To be able to actively use the
 hand tracking the following must all be true:
 
- - Leap Motion v4 Software installed and running
- - Ultraleap hand-tracking device attached and operating correctly
- - User's hands visible to the Ultraleap hand-tracking device.
+- Leap Motion v5 Software installed and running
+- Ultraleap hand-tracking device attached and operating correctly
+- User's hands visible to the Ultraleap hand-tracking device.
 
 ## Configuration
 
@@ -71,37 +71,26 @@ method such as the [Ultraleap VR Developer Mount](https://www.ultraleap.com/prod
 The position of the Ultraleap tracking device, relative to your view position can be configured using the following
 environment variables (position relative to the interpupillary line).
 
-![Leap Mounting Diagram](https://developer.leapmotion.com/documentation/v4/HMD_Mounting.png)
+![Ultraleap Mounting Diagram](https://developer.leapmotion.com/documentation/v4/HMD_Mounting.png)
 
-These environment variables must be set prior to the OpenXR application starting, if they are left unset,
-the default values (in brackets) are used:
+These environment variables must be set prior to the OpenXR application starting, if they are left unset, the default
+values (in brackets) are used:
 
- - `ULTRALEAP_OPENXR_POS_X` - Position in X in meters (default: 0.0m)
- - `ULTRALEAP_OPENXR_POS_Y` - Position in Y in meters (default: 0.0m)
- - `ULTRALEAP_OPENXR_POS_Z` - Position in Z in meters (default: -0.08m/-8cm)
- - `ULTRALEAP_OPENXR_TILT_ANGLE` - Tilt angle downwards in degrees from the forward facing horizontal (default 0)
- 
-### Temporal Warping
-
-The position of the hands in the scene is interpolated to compensate for differences between the captured hand-tracking
-frame and the update time of the user's view. This is controlled by two environment variables:
-
- - `ULTRALEAP_OPENXR_TIME_WARP_HAND` - +/- timestamp offset in milliseconds for the hand position (default: +10ms)
- - `ULTRALEAP_OPENXR_TIME_WARP_VIEW` - +/- timestamp offset in milliseconds for the view position (default: -25ms)
- 
-These parameters can be different for each different headset runtime and can be tuned appropriately. These can help
-stabilise the hand-position in space if the view position is moved rapidly.
+- `ULTRALEAP_OPENXR_POS_X` - Position in X in meters (default: 0.0m)
+- `ULTRALEAP_OPENXR_POS_Y` - Position in Y in meters (default: 0.0m)
+- `ULTRALEAP_OPENXR_POS_Z` - Position in Z in meters (default: -0.08m/-8cm)
+- `ULTRALEAP_OPENXR_TILT_ANGLE` - Tilt angle downwards in degrees from the forward facing horizontal (default 0)
 
 ### Logging
 
 By default, `%PROGRAMFILES%\Leap Motion\OpenXR\Logs\UltraleapOpenXR.log` will log errors and warnings generated during
 application usage of OpenXR. The logging location, and level can be controlled by the following environment variables:
 
- - `ULTRALEAP_OPENXR_LOG_LEVEL` - The logging level, supported levels are `all`, `debug`, `info`, `warn`, and `error`
-   (default: "warn")
- - `ULTRALEAP_OPENXR_LOG_PATH`  - The location of the log file (default:
-   `%PROGRAMFILES%\Leap Motion\OpenXR\Logs\UltraleapOpenXR.log`)
- 
+- `ULTRALEAP_OPENXR_LOG_LEVEL` - The logging level, supported levels are `all`, `debug`, `info`, `warn`, and `error`
+  (default: "warn")
+- `ULTRALEAP_OPENXR_LOG_PATH`  - The location of the log file (default:
+  `%PROGRAMFILES%\Leap Motion\OpenXR\Logs\UltraleapOpenXR.log`)
+
 ## Disabling the API layer
 
 If you wish to disable the API layer, this can be achieved by defining the
@@ -109,9 +98,7 @@ If you wish to disable the API layer, this can be achieved by defining the
 
 ## Uninstalling
 
-You can remove the API layer by right clicking the included `Uninstall.cmd` script and selecting "Run as administrator".
-This will remove the installed files and registry keys. Uninstallation can also be performed from the Windows "Add or 
-Remove Programs" area of the system settings.
+Uninstallation can be performed from the Windows "Add or Remove Programs" area of the system settings.
 
 ## Known issues
 
