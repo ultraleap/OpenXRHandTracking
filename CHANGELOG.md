@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.0.0
+
+### Fixed
+
+- The API layer will now disable its function intercepts if the `XR_EXT_hand_tracking` extension is not requested by the application [Issue #14](https://github.com/ultraleap/OpenXRHandTracking/issues/14).
+- Fixed issue causing non-conformance when running [OpenXR Conformance Test Suite](https://github.com/KhronosGroup/OpenXR-CTS).
+
 ## 1.0.0-beta.4
 
 ### Fixed
@@ -71,6 +78,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Initial support for the `XR_EXT_hand_tracking` extension
 
 ### Known Issues
+
+- This API layer currently does not disable its function intercepts if the `XR_EXT_hand_tracking` extension is *not* 
+  requested by the application. This should have no practical effect, as it is undefined behaviour for an app to use
+  the functions in this scenario.
+  [Issue #14](https://github.com/ultraleap/OpenXRHandTracking/issues/14)
 
 - This API layer does not currently report the linear or angular velocity of the hand joints other than the palm. If
   requested, the XrHandJointVelocitiesEXT structure will be returned with the validity bits unset.
