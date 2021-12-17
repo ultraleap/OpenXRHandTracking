@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.0.1
+
+## Changed
+
+- Updated Ultraleap tracking client to v5.3.0.
+- Increase timeout on initial tracking service connection, to increase tolerance to slower tracking server response.
+
+### Fixed
+
+- Fixed an issue which could cause a hang when all created hand-trackers were destroyed.
+- Fixed an issue with error handling that could cause tracking to stop working if the first tracking event was an error.
+
 ## 1.0.0
 
 ### Fixed
