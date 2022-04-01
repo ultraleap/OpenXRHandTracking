@@ -5,7 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 1.0.1
+## [1.1.0] - 2022-04-01
+
+### Added
+
+- Support for Qualcomm XR2 based Android systems.
+
+### Changed
+
+- `isTrackingSupported` is now reported based on if the Ultraleap Tracking Service is installed and running on the
+  system, as opposed to attempting a connection to the service to avoid startup delay and possible timeouts.
+
+### Fixed
+
+- Fixed an issue which could cause a hang when hand-trackers were created and destroyed very rapidly, such as
+  during the `XR_EXT_hand_tracking` conformance test.
+- Fixed an issue where permissions were not always correctly set on the logs directory during installation.
+
+### Known Issues
+
+- This API layer does not currently report the linear or angular velocity of the hand joints other than the palm. If
+  requested, the XrHandJointVelocitiesEXT structure will be returned with the validity bits unset.
+  [Issue #1](https://github.com/ultraleap/OpenXRHandTracking/issues/1)
+
+- The underlying Ultraleap service currently return the same joint radius for all joints.
+  [Issue #2](https://github.com/ultraleap/OpenXRHandTracking/issues/2)
+
+
+## [1.0.1] - 2021-12-17
 
 ## Changed
 
@@ -17,14 +44,44 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fixed an issue which could cause a hang when all created hand-trackers were destroyed.
 - Fixed an issue with error handling that could cause tracking to stop working if the first tracking event was an error.
 
-## 1.0.0
+### Known Issues
+
+- This API layer does not currently report the linear or angular velocity of the hand joints other than the palm. If
+  requested, the XrHandJointVelocitiesEXT structure will be returned with the validity bits unset.
+  [Issue #1](https://github.com/ultraleap/OpenXRHandTracking/issues/1)
+
+- The underlying Ultraleap service currently return the same joint radius for all joints.
+  [Issue #2](https://github.com/ultraleap/OpenXRHandTracking/issues/2)
+
+- `XrSystemHandTrackingPropertiesEXT.supportsHandTracking` will always return `XR_TRUE` when this API layer is enabled,
+  regardless of if a device is connected. `XrHandJointLocationsEXT.isActive` indicates if hand-tracking information is
+  currently available for the requested hand-tracker.
+  [Issue #3](https://github.com/ultraleap/OpenXRHandTracking/issues/3)
+
+
+## [1.0.0] - 2021-11-11
 
 ### Fixed
 
 - The API layer will now disable its function intercepts if the `XR_EXT_hand_tracking` extension is not requested by the application [Issue #14](https://github.com/ultraleap/OpenXRHandTracking/issues/14).
 - Fixed issue causing non-conformance when running [OpenXR Conformance Test Suite](https://github.com/KhronosGroup/OpenXR-CTS).
 
-## 1.0.0-beta.4
+### Known Issues
+
+- This API layer does not currently report the linear or angular velocity of the hand joints other than the palm. If
+  requested, the XrHandJointVelocitiesEXT structure will be returned with the validity bits unset.
+  [Issue #1](https://github.com/ultraleap/OpenXRHandTracking/issues/1)
+
+- The underlying Ultraleap service currently return the same joint radius for all joints.
+  [Issue #2](https://github.com/ultraleap/OpenXRHandTracking/issues/2)
+
+- `XrSystemHandTrackingPropertiesEXT.supportsHandTracking` will always return `XR_TRUE` when this API layer is enabled,
+  regardless of if a device is connected. `XrHandJointLocationsEXT.isActive` indicates if hand-tracking information is
+  currently available for the requested hand-tracker.
+  [Issue #3](https://github.com/ultraleap/OpenXRHandTracking/issues/3)
+
+
+## [1.0.0-beta.4] - 2021-10-27
 
 ### Fixed
 
@@ -32,7 +89,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   this API layer was enabled first.
 - Fixed issue with reporting the layer's API layer version information.
 
-## 1.0.0-beta.3
+
+## [1.0.0-beta.3] - 2021-10-27
 
 ### Added
 
@@ -60,7 +118,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fixed temporal warping so that the user's hands no longer move when held static and the user's head is rapidly
   moved. [Issue #6](https://github.com/ultraleap/OpenXRHandTracking/issues/6)
 
-## 1.0.0-beta.2
+
+## [1.0.0-beta.2] - 2020-10-07
 
 ### Added
 
@@ -79,42 +138,20 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - Fixed support for UWP/AppContainer applications, including WebXR, when used in conjunction with the
-  [Ultraleap 4.1 Tracking SDK](https://developer-archive.leapmotion.com/downloads/external/v4-1-hand-tracking/windows?version=4.1.0)
-  .
+  [Ultraleap 4.1 Tracking SDK](https://developer-archive.leapmotion.com/downloads/external/v4-1-hand-tracking/windows?version=4.1.0).
   [Issue #8](https://github.com/ultraleap/OpenXRHandTracking/issues/8)
 
-## 1.0.0-beta.1
+
+## [1.0.0-beta.1] - 2020-07-09
 
 ### Added
 
 - Initial support for the `XR_EXT_hand_tracking` extension
 
-### Known Issues
-
-- This API layer currently does not disable its function intercepts if the `XR_EXT_hand_tracking` extension is *not* 
-  requested by the application. This should have no practical effect, as it is undefined behaviour for an app to use
-  the functions in this scenario.
-  [Issue #14](https://github.com/ultraleap/OpenXRHandTracking/issues/14)
-
-- This API layer does not currently report the linear or angular velocity of the hand joints other than the palm. If
-  requested, the XrHandJointVelocitiesEXT structure will be returned with the validity bits unset.
-  [Issue #1](https://github.com/ultraleap/OpenXRHandTracking/issues/1)
-
-- The underlying Ultraleap service currently return the same joint radius for all joints.
-  [Issue #2](https://github.com/ultraleap/OpenXRHandTracking/issues/2)
-
-- `XrSystemHandTrackingPropertiesEXT.supportsHandTracking` will always return `XR_TRUE` when this API layer is enabled,
-  regardless of if a device is connected. `XrHandJointLocationsEXT.isActive` indicates if hand-tracking information is
-  currently available for the requested hand-tracker.
-  [Issue #3](https://github.com/ultraleap/OpenXRHandTracking/issues/3)
-
-- The user's virtual hands may appear to move relative to the head when the head is moved quickly, even when the user's
-  hands are remaining still. This is due to the temporal warping settings and the fact that the hand position and view
-  position are updated at different rates.
-  [Issue #6](https://github.com/ultraleap/OpenXRHandTracking/issues/6)
-
-- Unreal Engine 4.25 currently ships with version 1.0.0 of the OpenXR loader which has a
-  [known issue](https://github.com/KhronosGroup/OpenXR-SDK-Source/pull/91) which prevents OpenXR API layers from
-  functioning correctly. This will be resolved when Unreal Engine ships with a newer OpenXR loader, or the existing
-  OpenXR loader DLLs are manually updated.
-  [Issue #4](https://github.com/ultraleap/OpenXRHandTracking/issues/4)
+[1.1.0]: https://github.com/ultraleap/OpenXRHandTracking/releases/tag/1.1.0
+[1.0.1]: https://github.com/ultraleap/OpenXRHandTracking/releases/tag/1.0.1
+[1.0.0]: https://github.com/ultraleap/OpenXRHandTracking/releases/tag/1.0.0
+[1.0.0-beta.4]: https://github.com/ultraleap/OpenXRHandTracking/releases/tag/1.0.0-beta.4
+[1.0.0-beta.3]: https://github.com/ultraleap/OpenXRHandTracking/releases/tag/1.0.0-beta.3
+[1.0.0-beta.2]: https://github.com/ultraleap/OpenXRHandTracking/releases/tag/1.0.0-beta2
+[1.0.0-beta.1]: https://github.com/ultraleap/OpenXRHandTracking/releases/tag/1.0.0-beta
