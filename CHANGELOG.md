@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2002-05-18
+
+### Changed
+
+- Moved the logging location from `%PROGRAMFILES%\Ultraleap\OpenXR\Logs` to `%PROGRAMDATA%\Ultraleap\OpenXR`.
+- Removed option to override logging location (`ULTRALEAP_OPENXR_LOG_PATH`).
+
+### Fixed
+
+- Fixed reporting of palm velocity information.
+- Fixed an issue with extension negotiation with the runtime when more than one extension was requested that depended
+  on another API layer implemented extension.
+- Fixed an issue where there would be incorrect error messages in the log indicating incorrect device calibration or a 
+  faulty USB connection, when used with some versions of the Ultraleap Tracking Service.
+- Fixed an issue where an empty hand would be returned when the requesting joints for a timestamp before the most
+  recent frame.
+
 ## [1.1.0] - 2022-04-01
 
 ### Added
@@ -148,6 +165,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Initial support for the `XR_EXT_hand_tracking` extension
 
+[1.2.0]: https://github.com/ultraleap/OpenXRHandTracking/releases/tag/1.2.0
 [1.1.0]: https://github.com/ultraleap/OpenXRHandTracking/releases/tag/1.1.0
 [1.0.1]: https://github.com/ultraleap/OpenXRHandTracking/releases/tag/1.0.1
 [1.0.0]: https://github.com/ultraleap/OpenXRHandTracking/releases/tag/1.0.0

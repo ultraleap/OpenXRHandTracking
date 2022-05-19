@@ -90,13 +90,11 @@ values (in brackets) are used:
 
 #### Logging
 
-By default, `%PROGRAMFILES%\Leap Motion\OpenXR\Logs\UltraleapOpenXR.log` will log errors and warnings generated during
+The layer will log to `%PROGRAMDATA%\Ultraleap\OpenXR\UltraleapOpenXR.log` with errors and warnings generated during
 application usage of OpenXR. The logging location, and level can be controlled by the following environment variables:
 
 - `ULTRALEAP_OPENXR_LOG_LEVEL` - The logging level, supported levels are `all`, `debug`, `info`, `warn`, and `error`
   (default: "warn")
-- `ULTRALEAP_OPENXR_LOG_PATH`  - The location of the log file (default:
-  `%PROGRAMFILES%\Leap Motion\OpenXR\Logs\UltraleapOpenXR.log`)
 
 #### Disabling the API layer
 
